@@ -18,9 +18,7 @@ namespace Castle.MicroKernel.Lifestyle.Tests {
 
         [Test]
         public void ResolveInSameSession() {
-            var session = new HashtableSessionState();
-            var context = MockRepository.GenerateMock<HttpContextBase>();
-            context.Expect(x => x.Session).Return(session);
+            var context = GetMockContext();
             var m = new PerWebSessionLifestyleManager {ContextProvider = () => context};
             var kernel = new DefaultKernel();
             var model = new ComponentModel("bla", typeof (object), typeof (object));
@@ -35,9 +33,7 @@ namespace Castle.MicroKernel.Lifestyle.Tests {
 
         [Test]
         public void ResolveInDifferentSessions() {
-            var session = new HashtableSessionState();
-            var context = MockRepository.GenerateMock<HttpContextBase>();
-            context.Expect(x => x.Session).Return(session);
+            var context = GetMockContext();
             var m = new PerWebSessionLifestyleManager {ContextProvider = () => context};
             var kernel = new DefaultKernel();
             var model = new ComponentModel("bla", typeof (object), typeof (object));
@@ -46,9 +42,16 @@ namespace Castle.MicroKernel.Lifestyle.Tests {
             var creationContext = new CreationContext(new DefaultHandler(model), kernel.ReleasePolicy, typeof (object), null, null);
             var instance = m.Resolve(creationContext);
             Assert.IsNotNull(instance);
-            session.Abandon();
+            context.Session.Abandon();
             var instance2 = m.Resolve(creationContext);
             Assert.AreNotSame(instance, instance2);
+        }
+
+        public HttpContextBase GetMockContext() {
+            var session = new HashtableSessionState();
+            var context = MockRepository.GenerateMock<HttpContextBase>();
+            context.Expect(x => x.Session).Return(session);
+            return context;
         }
     }
 }
