@@ -1,11 +1,10 @@
 ﻿using System.Web;
 
 namespace Castle.MicroKernel.Lifestyle {
-    public class HybridPerWebRequestTransientLifestyleManager : HybridLifestyleManager<PerWebRequestLifestyleManager, TransientLifestyleManager> {
-        public override object Resolve(CreationContext context) {
-            if (HttpContext.Current != null)
-                return lifestyle1.Resolve(context);
-            return lifestyle2.Resolve(context);
-        }
-    }
+    /// <summary>
+    /// Hybrid lifestyle manager, 
+    /// the main lifestyle is <see cref="PerWebRequestLifestyleManager"/>,
+    /// the secondary lifestyle is <see cref="TransientLifestyleManager"/>
+    /// </summary>
+    public class HybridPerWebRequestTransientLifestyleManager : HybridPerWebRequestLifestyleManager<TransientLifestyleManager> {}
 }

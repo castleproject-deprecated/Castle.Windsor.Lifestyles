@@ -58,6 +58,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="HybridLifestyleManager.cs" />
+    <Compile Include="HybridPerWebRequestLifestyleManager.cs" />
     <Compile Include="HybridPerWebRequestTransientLifestyleManager.cs" />
     <Compile Include="PerWebSessionLifestyleManager.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
