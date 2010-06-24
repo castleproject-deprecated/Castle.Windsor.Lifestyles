@@ -1,5 +1,9 @@
-﻿using Castle.Core;
+﻿using System.IO;
+using System.Web;
+using System.Web.Hosting;
+using Castle.Core;
 using Castle.MicroKernel.Handlers;
+using Castle.MicroKernel.Registration;
 using NUnit.Framework;
 
 namespace Castle.MicroKernel.Lifestyle.Tests {
@@ -19,6 +23,25 @@ namespace Castle.MicroKernel.Lifestyle.Tests {
             Assert.IsNotNull(instance2);
             Assert.AreNotSame(instance1, instance2);
 
+        }
+
+        [Test]
+        public void PerWebRequestLifestyleManagerTest() {
+            var tw = new StringWriter();
+            var wr = new SimpleWorkerRequest("/", Directory.GetCurrentDirectory(), "default.aspx", null, tw);
+            var module = new PerWebRequestLifestyleModule();
+
+            var ctx = HttpModuleRunner.GetContext(wr, new[] { module });
+            HttpContext.Current = ctx.Key;
+
+            var kernel = new DefaultKernel();
+            kernel.Register(Component.For<object>()
+                .LifeStyle.Custom<PerWebRequestLifestyleManager>());
+            var instance1 = kernel.Resolve<object>();
+            Assert.IsNotNull(instance1);
+            var instance2 = kernel.Resolve<object>();
+            Assert.IsNotNull(instance2);
+            Assert.AreSame(instance1, instance2);
         }
     }
 }
