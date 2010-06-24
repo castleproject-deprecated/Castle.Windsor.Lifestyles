@@ -1,6 +1,11 @@
 ﻿using Castle.Core;
 
 namespace Castle.MicroKernel.Lifestyle {
+    /// <summary>
+    /// Abstract hybrid lifestyle manager, with two underlying lifestyles
+    /// </summary>
+    /// <typeparam name="M1">Primary lifestyle manager</typeparam>
+    /// <typeparam name="M2">Seconday lifestyle manager</typeparam>
     public abstract class HybridLifestyleManager<M1, M2> : AbstractLifestyleManager
         where M1 : ILifestyleManager, new()
         where M2 : ILifestyleManager, new() {
@@ -24,6 +29,6 @@ namespace Castle.MicroKernel.Lifestyle {
             return base.Release(instance);
         }
 
-        public abstract object Resolve(CreationContext context);
+        public abstract override object Resolve(CreationContext context);
         }
 }

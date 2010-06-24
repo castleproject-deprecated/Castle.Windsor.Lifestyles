@@ -34,14 +34,40 @@ namespace Castle.MicroKernel.Lifestyle.Tests {
             var ctx = HttpModuleRunner.GetContext(wr, new[] { module });
             HttpContext.Current = ctx.Key;
 
-            var kernel = new DefaultKernel();
-            kernel.Register(Component.For<object>()
-                .LifeStyle.Custom<PerWebRequestLifestyleManager>());
-            var instance1 = kernel.Resolve<object>();
-            Assert.IsNotNull(instance1);
-            var instance2 = kernel.Resolve<object>();
-            Assert.IsNotNull(instance2);
-            Assert.AreSame(instance1, instance2);
+            using (var kernel = new DefaultKernel()) {
+                kernel.Register(Component.For<object>()
+                    .LifeStyle.Custom<PerWebRequestLifestyleManager>());
+                var instance1 = kernel.Resolve<object>();
+                Assert.IsNotNull(instance1);
+                var instance2 = kernel.Resolve<object>();
+                Assert.IsNotNull(instance2);
+                Assert.AreSame(instance1, instance2);
+            }
+        }
+
+        [Test]
+        public void With_context_uses_context() {
+            var tw = new StringWriter();
+            var wr = new SimpleWorkerRequest("/", Directory.GetCurrentDirectory(), "default.aspx", null, tw);
+            var module = new PerWebRequestLifestyleModule();
+
+            var ctx = HttpModuleRunner.GetContext(wr, new[] { module });
+            HttpContext.Current = ctx.Key;
+
+            using (var kernel = new DefaultKernel()) {
+                kernel.Register(Component.For<object>()
+                    .LifeStyle.Custom<HybridPerWebRequestTransientLifestyleManager>());
+                var instance1 = kernel.Resolve<object>();
+                Assert.IsNotNull(instance1);
+                var instance2 = kernel.Resolve<object>();
+                Assert.IsNotNull(instance2);
+                Assert.AreSame(instance1, instance2);
+
+                HttpContext.Current = HttpModuleRunner.GetContext(wr, new[] { new PerWebRequestLifestyleModule() }).Key;
+                var instance3 = kernel.Resolve<object>();
+                Assert.AreNotSame(instance1, instance3);
+            }
+
         }
     }
 }
