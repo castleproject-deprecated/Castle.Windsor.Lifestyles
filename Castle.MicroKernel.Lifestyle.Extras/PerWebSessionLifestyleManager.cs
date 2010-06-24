@@ -1,9 +1,7 @@
 ﻿using System;
 using System.Web;
-using Castle.MicroKernel;
-using Castle.MicroKernel.Lifestyle;
 
-namespace ExtraWindsorLifestyles {
+namespace Castle.MicroKernel.Lifestyle {
     public class PerWebSessionLifestyleManager : AbstractLifestyleManager {
         private readonly string objectID = "PerWebSessionLifestyleManager_" + Guid.NewGuid();
 
