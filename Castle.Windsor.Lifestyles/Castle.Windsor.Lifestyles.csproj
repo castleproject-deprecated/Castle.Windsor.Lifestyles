@@ -9,7 +9,7 @@
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>Castle.MicroKernel.Lifestyle</RootNamespace>
-    <AssemblyName>Castle.MicroKernel.Lifestyle.Extras</AssemblyName>
+    <AssemblyName>Castle.Windsor.Lifestyles</AssemblyName>
     <TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
   </PropertyGroup>

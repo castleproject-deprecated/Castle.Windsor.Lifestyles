@@ -9,7 +9,7 @@
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>Castle.MicroKernel.Lifestyle.Tests</RootNamespace>
-    <AssemblyName>Castle.MicroKernel.Lifestyle.Extras.Tests</AssemblyName>
+    <AssemblyName>Castle.Windsor.Lifestyles.Tests</AssemblyName>
     <TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
   </PropertyGroup>
@@ -72,9 +72,9 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Castle.MicroKernel.Lifestyle.Extras\Castle.MicroKernel.Lifestyle.Extras.csproj">
+    <ProjectReference Include="..\Castle.Windsor.Lifestyles\Castle.Windsor.Lifestyles.csproj">
       <Project>{139EAB1D-CE1F-4726-B58F-EE9FD3051D4D}</Project>
-      <Name>Castle.MicroKernel.Lifestyle.Extras</Name>
+      <Name>Castle.Windsor.Lifestyles</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
