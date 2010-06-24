@@ -3,8 +3,11 @@ using System.Web;
 
 namespace Castle.MicroKernel.Lifestyle {
     /// <summary>
-    /// Implements a Lifestyle manager for web apps that creates at most one object per http session
+    /// Implements a Lifestyle manager for web apps that creates at most one object per http session.
     /// </summary>
+    /// <remarks>
+    /// Since the http session end event is not really reliable (it only fires with an InProc session provider) there is no way to properly release any components with this lifestyle
+    /// </remarks>
     public class PerWebSessionLifestyleManager : AbstractLifestyleManager {
         private readonly string objectID = "PerWebSessionLifestyleManager_" + Guid.NewGuid();
 

@@ -5,7 +5,7 @@ namespace Castle.MicroKernel.Lifestyle {
     /// Abstract hybrid lifestyle manager, with two underlying lifestyles
     /// </summary>
     /// <typeparam name="M1">Primary lifestyle manager</typeparam>
-    /// <typeparam name="M2">Seconday lifestyle manager</typeparam>
+    /// <typeparam name="M2">Secondary lifestyle manager</typeparam>
     public abstract class HybridLifestyleManager<M1, M2> : AbstractLifestyleManager
         where M1 : ILifestyleManager, new()
         where M2 : ILifestyleManager, new() {
