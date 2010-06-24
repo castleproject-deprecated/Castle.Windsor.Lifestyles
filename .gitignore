@@ -1,3 +1,5 @@
 _ReSharper.*
 *.suo
 *.user
+*/bin
+*/obj
