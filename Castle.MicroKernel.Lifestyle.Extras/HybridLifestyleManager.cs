@@ -1,7 +1,7 @@
 ﻿using Castle.Core;
 
 namespace Castle.MicroKernel.Lifestyle {
-    public class HybridLifestyleManager<M1, M2> : AbstractLifestyleManager
+    public abstract class HybridLifestyleManager<M1, M2> : AbstractLifestyleManager
         where M1 : ILifestyleManager, new()
         where M2 : ILifestyleManager, new() {
         protected readonly M1 lifestyle1 = new M1();
@@ -24,8 +24,6 @@ namespace Castle.MicroKernel.Lifestyle {
             return base.Release(instance);
         }
 
-        public override object Resolve(CreationContext context) {
-            return lifestyle1.Resolve(context) ?? lifestyle2.Resolve(context) ?? base.Resolve(context);
-        }
+        public abstract object Resolve(CreationContext context);
         }
 }

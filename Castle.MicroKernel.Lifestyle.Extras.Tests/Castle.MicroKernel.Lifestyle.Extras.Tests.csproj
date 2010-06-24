@@ -65,7 +65,6 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="HashtableSessionState.cs" />
-    <Compile Include="HybridLifestyleManagerTests.cs" />
     <Compile Include="HybridPerWebRequestTransientLifestyleManagerTests.cs" />
     <Compile Include="PerWebSessionLifestyleManagerTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
