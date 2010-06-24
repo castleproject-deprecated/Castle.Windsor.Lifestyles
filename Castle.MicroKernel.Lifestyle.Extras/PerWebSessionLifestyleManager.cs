@@ -2,6 +2,9 @@
 using System.Web;
 
 namespace Castle.MicroKernel.Lifestyle {
+    /// <summary>
+    /// Implements a Lifestyle manager for web apps that creates at most one object per http session
+    /// </summary>
     public class PerWebSessionLifestyleManager : AbstractLifestyleManager {
         private readonly string objectID = "PerWebSessionLifestyleManager_" + Guid.NewGuid();
 
@@ -18,6 +21,7 @@ namespace Castle.MicroKernel.Lifestyle {
             if (session[objectID] == null) {
                 var instance = base.Resolve(context);
                 session[objectID] = instance;
+                return instance;
             }
             return session[objectID];
         }
