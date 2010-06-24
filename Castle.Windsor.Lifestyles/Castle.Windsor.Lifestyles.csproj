@@ -60,6 +60,7 @@
     <Compile Include="HybridLifestyleManager.cs" />
     <Compile Include="HybridPerWebRequestLifestyleManager.cs" />
     <Compile Include="HybridPerWebRequestTransientLifestyleManager.cs" />
+    <Compile Include="LifestyleRegistrationExtensions.cs" />
     <Compile Include="PerHttpApplicationLifestyleManager.cs" />
     <Compile Include="PerHttpApplicationLifestyleModule.cs" />
     <Compile Include="PerWebSessionLifestyleManager.cs" />

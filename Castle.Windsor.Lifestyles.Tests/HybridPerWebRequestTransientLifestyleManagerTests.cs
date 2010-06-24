@@ -51,8 +51,7 @@ namespace Castle.MicroKernel.Lifestyle.Tests {
             HttpContext.Current = ctx.Key;
 
             using (var kernel = new DefaultKernel()) {
-                kernel.Register(Component.For<object>()
-                    .LifeStyle.Custom<PerWebRequestLifestyleManager>());
+                kernel.Register(Component.For<object>().LifeStyle.PerWebRequest);
                 var instance1 = kernel.Resolve<object>();
                 Assert.IsNotNull(instance1);
                 var instance2 = kernel.Resolve<object>();
@@ -71,8 +70,7 @@ namespace Castle.MicroKernel.Lifestyle.Tests {
             HttpContext.Current = ctx.Key;
 
             using (var kernel = new DefaultKernel()) {
-                kernel.Register(Component.For<object>()
-                    .LifeStyle.Custom<HybridPerWebRequestTransientLifestyleManager>());
+                kernel.Register(Component.For<object>().LifeStyle.HybridPerWebRequestTransient());
                 var instance1 = kernel.Resolve<object>();
                 Assert.IsNotNull(instance1);
                 var instance2 = kernel.Resolve<object>();
