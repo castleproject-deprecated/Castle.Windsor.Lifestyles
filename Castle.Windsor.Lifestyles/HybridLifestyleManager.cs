@@ -36,13 +36,12 @@ namespace Castle.MicroKernel.Lifestyle {
         public override void Init(IComponentActivator componentActivator, IKernel kernel, ComponentModel model) {
             lifestyle1.Init(componentActivator, kernel, model);
             lifestyle2.Init(componentActivator, kernel, model);
-            base.Init(componentActivator, kernel, model);
         }
 
         public override bool Release(object instance) {
-            lifestyle1.Release(instance);
-            lifestyle2.Release(instance);
-            return base.Release(instance);
+            var r1 = lifestyle1.Release(instance);
+            var r2 = lifestyle2.Release(instance);
+            return r1 || r2;
         }
 
         public abstract override object Resolve(CreationContext context);
