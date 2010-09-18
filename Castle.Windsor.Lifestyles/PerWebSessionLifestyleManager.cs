@@ -16,6 +16,7 @@
 
 using System;
 using System.Web;
+using Castle.MicroKernel.Context;
 
 namespace Castle.MicroKernel.Lifestyle {
     /// <summary>
@@ -34,9 +35,12 @@ namespace Castle.MicroKernel.Lifestyle {
         }
 
         public override object Resolve(CreationContext context) {
-            if (ContextProvider() == null)
+            var httpContext = ContextProvider();
+            if (httpContext == null)
                 throw new InvalidOperationException("HttpContext.Current is null. PerWebSessionLifestyle can only be used in ASP.Net");
-            var session = ContextProvider().Session;
+            var session = httpContext.Session;
+            if (session == null)
+                throw new InvalidOperationException("ASP.NET session not found");
             if (session[objectID] == null) {
                 var instance = base.Resolve(context);
                 session[objectID] = instance;
@@ -50,6 +54,9 @@ namespace Castle.MicroKernel.Lifestyle {
             if (current == null) {
                 return;
             }
+
+            if (current.Session == null)
+                throw new InvalidOperationException("ASP.NET session not found");
 
             var instance = current.Session[objectID];
             if (instance == null) {

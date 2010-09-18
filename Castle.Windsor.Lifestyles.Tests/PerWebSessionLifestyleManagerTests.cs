@@ -17,6 +17,7 @@
 using System;
 using System.Web;
 using Castle.Core;
+using Castle.MicroKernel.Context;
 using Castle.MicroKernel.Handlers;
 using Castle.MicroKernel.Releasers;
 using NUnit.Framework;

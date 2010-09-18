@@ -15,6 +15,7 @@
 #endregion
 
 using Castle.Core;
+using Castle.MicroKernel.Context;
 
 namespace Castle.MicroKernel.Lifestyle {
     /// <summary>

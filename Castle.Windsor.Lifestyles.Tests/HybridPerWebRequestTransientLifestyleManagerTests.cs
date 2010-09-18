@@ -18,6 +18,7 @@ using System.IO;
 using System.Web;
 using System.Web.Hosting;
 using Castle.Core;
+using Castle.MicroKernel.Context;
 using Castle.MicroKernel.Handlers;
 using Castle.MicroKernel.Registration;
 using NUnit.Framework;

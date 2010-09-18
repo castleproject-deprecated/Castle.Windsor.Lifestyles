@@ -1,5 +1,5 @@
 _ReSharper.*
 *.suo
 *.user
-*/bin
-*/obj
+*/[bB]in
+*/[oO]bj

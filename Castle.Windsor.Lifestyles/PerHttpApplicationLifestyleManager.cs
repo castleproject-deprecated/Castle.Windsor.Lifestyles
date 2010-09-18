@@ -17,6 +17,7 @@
 using System;
 using System.Linq;
 using System.Web;
+using Castle.MicroKernel.Context;
 
 namespace Castle.MicroKernel.Lifestyle {
     /// <summary>
