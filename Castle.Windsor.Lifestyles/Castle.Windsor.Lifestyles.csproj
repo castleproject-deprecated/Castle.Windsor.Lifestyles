@@ -57,6 +57,10 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Contextual\ContainerContext.cs" />
+    <Compile Include="Contextual\ContainerContextStore.cs" />
+    <Compile Include="Contextual\ContextualLifestyle.cs" />
+    <Compile Include="Contextual\IContainerContextStore.cs" />
     <Compile Include="HybridLifestyleManager.cs" />
     <Compile Include="HybridPerWebRequestLifestyleManager.cs" />
     <Compile Include="HybridPerWebRequestTransientLifestyleManager.cs" />
