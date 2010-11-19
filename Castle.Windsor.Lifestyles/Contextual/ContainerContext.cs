@@ -28,6 +28,8 @@ namespace Castle.MicroKernel.Lifestyle.Contextual
 		public void Dispose()
 		{
 			contextStore.UnregisterCurrent(this);
+            foreach (var c in contextualComponents)
+                kernel.ReleaseComponent(c.Value);
 		}
 
 		public object GetInstance(string name, Type type)

@@ -1,4 +1,5 @@
-﻿using System.Threading;
+﻿using System;
+using System.Threading;
 using Castle.MicroKernel.Lifestyle.Contextual;
 using Castle.MicroKernel.Registration;
 using NUnit.Framework;
@@ -209,6 +210,17 @@ namespace Castle.MicroKernel.Lifestyle.Tests.Contextual
 			Assert.That(countInForegroundThread, Is.EqualTo(5000));
 			Assert.That(instanceInBackgroundThread, Is.Not.SameAs(instanceInForegroundThread));
 		}
+
+        [Test]
+        public void Should_release_components_when_context_disposed() {
+            ComponentDisposable.Disposed = false;
+            kernel.Register(Component.For<ComponentDisposable>().LifeStyle.Transient,
+                            Component.For<ComponentD>().LifeStyle.Custom<ContextualLifestyle>());
+            using (new ContainerContext(kernel)) {
+                kernel.Resolve<ComponentD>();
+            }
+            Assert.IsTrue(ComponentDisposable.Disposed);
+        }
 	}
 
 	public class ComponentA
@@ -236,4 +248,20 @@ namespace Castle.MicroKernel.Lifestyle.Tests.Contextual
 			B = b;
 		}
 	}
+
+    public class ComponentD {
+        public ComponentDisposable disposable;
+
+        public ComponentD(ComponentDisposable disposable) {
+            this.disposable = disposable;
+        }
+    }
+
+    public class ComponentDisposable: IDisposable {
+        public static bool Disposed;
+
+        public void Dispose() {
+            Disposed = true;
+        }
+    }
 }
