@@ -54,11 +54,14 @@ namespace Castle.MicroKernel.Lifestyle.Contextual
 
         public static void EnsureContextStoreRegistered(IKernel kernel)
         {
-            lock (@lock)
+            if (kernel.HasComponent(typeof(IContainerContextStore)) == false)
             {
-                if (kernel.HasComponent(typeof(IContainerContextStore)) == false)
+                lock (@lock)
                 {
-                    kernel.AddComponent<ContainerContextStore>(typeof(IContainerContextStore));
+                    if (kernel.HasComponent(typeof (IContainerContextStore)) == false)
+                    {
+                        kernel.AddComponent<ContainerContextStore>(typeof (IContainerContextStore));
+                    }
                 }
             }
         }
