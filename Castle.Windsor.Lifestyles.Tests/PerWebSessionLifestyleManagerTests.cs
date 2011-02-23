@@ -30,7 +30,9 @@ namespace Castle.MicroKernel.Lifestyle.Tests {
         [ExpectedException(typeof (InvalidOperationException), ExpectedMessage = "HttpContext.Current is null. PerWebSessionLifestyle can only be used in ASP.Net")]
         public void NoContextThrows() {
             var m = new PerWebSessionLifestyleManager {ContextProvider = () => null};
-            m.Resolve(new CreationContext(new DefaultHandler(new ComponentModel("", typeof (object), typeof (object))), new NoTrackingReleasePolicy(), typeof (object), null, null));
+            var componentModel = new ComponentModel("", typeof(object), typeof(object));
+            var handler = new DefaultHandler(componentModel);
+            m.Resolve(new CreationContext(handler, new NoTrackingReleasePolicy(), typeof (object), null, null, null));
         }
 
         [Test]
@@ -41,7 +43,8 @@ namespace Castle.MicroKernel.Lifestyle.Tests {
             var model = new ComponentModel("bla", typeof (object), typeof (object));
             var activator = kernel.CreateComponentActivator(model);
             m.Init(activator, kernel, model);
-            var creationContext = new CreationContext(new DefaultHandler(model), kernel.ReleasePolicy, typeof (object), null, null);
+            var handler = new DefaultHandler(model);
+            var creationContext = new CreationContext(handler, kernel.ReleasePolicy, typeof (object), null, null, null);
             var instance = m.Resolve(creationContext);
             Assert.IsNotNull(instance);
             var instance2 = m.Resolve(creationContext);
@@ -56,7 +59,7 @@ namespace Castle.MicroKernel.Lifestyle.Tests {
             var model = new ComponentModel("bla", typeof (object), typeof (object));
             var activator = kernel.CreateComponentActivator(model);
             m.Init(activator, kernel, model);
-            var creationContext = new CreationContext(new DefaultHandler(model), kernel.ReleasePolicy, typeof (object), null, null);
+            var creationContext = new CreationContext(new DefaultHandler(model), kernel.ReleasePolicy, typeof (object), null, null, null);
             var instance = m.Resolve(creationContext);
             Assert.IsNotNull(instance);
             context.Session.Abandon();

@@ -33,7 +33,7 @@ namespace Castle.MicroKernel.Lifestyle.Tests {
             var model = new ComponentModel("bla", typeof(object), typeof(object));
             var activator = kernel.CreateComponentActivator(model);
             m.Init(activator, kernel, model);
-            var creationContext = new CreationContext(new DefaultHandler(model), kernel.ReleasePolicy, typeof(object), null, null);
+            var creationContext = new CreationContext(new DefaultHandler(model), kernel.ReleasePolicy, typeof(object), null, null, null);
             var instance1 = m.Resolve(creationContext);
             Assert.IsNotNull(instance1);
             var instance2 = m.Resolve(creationContext);
