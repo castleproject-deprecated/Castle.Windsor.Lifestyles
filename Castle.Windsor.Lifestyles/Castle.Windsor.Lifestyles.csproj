@@ -59,6 +59,7 @@
   <ItemGroup>
     <Compile Include="Contextual\ContainerContext.cs" />
     <Compile Include="Contextual\ContainerContextStore.cs" />
+    <Compile Include="Contextual\ContextualExtensions.cs" />
     <Compile Include="Contextual\ContextualLifestyle.cs" />
     <Compile Include="Contextual\IContainerContextStore.cs" />
     <Compile Include="HybridLifestyleManager.cs" />

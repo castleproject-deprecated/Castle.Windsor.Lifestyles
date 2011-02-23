@@ -7,6 +7,7 @@ namespace Castle.MicroKernel.Lifestyle.Contextual
 	public class ContainerContextStore : IContainerContextStore
 	{
 		private readonly Dictionary<Thread, Stack<ContainerContext>> contexts = new Dictionary<Thread, Stack<ContainerContext>>();
+	    private static object @lock = new object();
 
 		public void RegisterCurrent(ContainerContext context)
 		{
@@ -50,5 +51,16 @@ namespace Castle.MicroKernel.Lifestyle.Contextual
 			}
 			return contextHistory;
 		}
+
+        public static void EnsureContextStoreRegistered(IKernel kernel)
+        {
+            lock (@lock)
+            {
+                if (kernel.HasComponent(typeof(IContainerContextStore)) == false)
+                {
+                    kernel.AddComponent<ContainerContextStore>(typeof(IContainerContextStore));
+                }
+            }
+        }
 	}
 }

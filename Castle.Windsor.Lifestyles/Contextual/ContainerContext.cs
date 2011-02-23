@@ -10,7 +10,7 @@ namespace Castle.MicroKernel.Lifestyle.Contextual
 		private readonly IKernel kernel;
 		private readonly Dictionary<Pair<string, Type>, object> contextualComponents = new Dictionary<Pair<string, Type>, object>();
 		private readonly IContainerContextStore contextStore;
-
+	    
 		public ContainerContext(IWindsorContainer container) : this(container.Kernel)
 		{
 		}
@@ -18,8 +18,8 @@ namespace Castle.MicroKernel.Lifestyle.Contextual
 		public ContainerContext(IKernel kernel)
 		{
 			this.kernel = kernel;
-			
-			EnsureContainerContextStoreRegistered();
+
+            ContainerContextStore.EnsureContextStoreRegistered(kernel);
 
 			contextStore = kernel.Resolve<IContainerContextStore>();
 			contextStore.RegisterCurrent(this);
@@ -42,14 +42,6 @@ namespace Castle.MicroKernel.Lifestyle.Contextual
 		public void Register(string name, Type type, object instance)
 		{
 			contextualComponents.Add(new Pair<string, Type>(name, type), instance);
-		}
-
-		private void EnsureContainerContextStoreRegistered()
-		{
-			if (kernel.HasComponent(typeof(IContainerContextStore)) == false)
-			{
-				kernel.AddComponent<ContainerContextStore>(typeof(IContainerContextStore));
-			}
 		}
 	}
 }

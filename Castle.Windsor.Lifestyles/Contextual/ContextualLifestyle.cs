@@ -6,7 +6,7 @@ namespace Castle.MicroKernel.Lifestyle.Contextual
 	{
 		public override object Resolve(CreationContext context)
 		{
-			EnsureContainerContextStoreRegistered();
+		    ContainerContextStore.EnsureContextStoreRegistered(Kernel);
 
 			var containerContextStore = Kernel.Resolve<IContainerContextStore>();
 			var currentContext = containerContextStore.GetCurrent();
@@ -25,14 +25,6 @@ namespace Castle.MicroKernel.Lifestyle.Contextual
 				currentContext.Register(Model.Name, Model.Service, instance);
 			}
 			return instance;
-		}
-
-		private void EnsureContainerContextStoreRegistered()
-		{
-			if (Kernel.HasComponent(typeof(IContainerContextStore)) == false)
-			{
-				Kernel.AddComponent<ContainerContextStore>(typeof(IContainerContextStore));
-			}
 		}
 
 		public override void Dispose()
