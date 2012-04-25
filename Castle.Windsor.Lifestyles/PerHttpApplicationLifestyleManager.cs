@@ -28,7 +28,8 @@ namespace Castle.MicroKernel.Lifestyle {
     public class PerHttpApplicationLifestyleManager : AbstractLifestyleManager {
         private readonly string PerAppObjectID = "PerAppObjectID_" + Guid.NewGuid();
 
-        public override object Resolve(CreationContext context) {
+        public override object Resolve(CreationContext context, IReleasePolicy releasePolicy)
+        {
             var current = HttpContext.Current;
             if (current == null)
                 throw new InvalidOperationException("HttpContext.Current is null. PerHttpApplicationLifestyle can only be used in ASP.NET");
@@ -49,7 +50,7 @@ namespace Castle.MicroKernel.Lifestyle {
             }
 
             if (!lifestyleModule.HasComponent(PerAppObjectID)) {
-                var instance = base.Resolve(context);
+                var instance = base.Resolve(context, releasePolicy);
                 lifestyleModule[PerAppObjectID] = instance;
                 app.Disposed += (sender, args) => base.Release(instance);
             }

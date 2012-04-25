@@ -45,6 +45,6 @@ namespace Castle.MicroKernel.Lifestyle {
             return r1 || r2;
         }
 
-        public abstract override object Resolve(CreationContext context);
+        public abstract override object Resolve(CreationContext context, IReleasePolicy releasePolicy);
         }
 }

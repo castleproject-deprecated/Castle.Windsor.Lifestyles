@@ -34,7 +34,8 @@ namespace Castle.MicroKernel.Lifestyle {
             ContextProvider = () => new HttpContextWrapper(HttpContext.Current);
         }
 
-        public override object Resolve(CreationContext context) {
+        public override object Resolve(CreationContext context, IReleasePolicy releasePolicy)
+        {
             var httpContext = ContextProvider();
             if (httpContext == null)
                 throw new InvalidOperationException("HttpContext.Current is null. PerWebSessionLifestyle can only be used in ASP.Net");
@@ -42,7 +43,7 @@ namespace Castle.MicroKernel.Lifestyle {
             if (session == null)
                 throw new InvalidOperationException("ASP.NET session not found");
             if (session[objectID] == null) {
-                var instance = base.Resolve(context);
+                var instance = base.Resolve(context, releasePolicy);
                 session[objectID] = instance;
                 return instance;
             }
