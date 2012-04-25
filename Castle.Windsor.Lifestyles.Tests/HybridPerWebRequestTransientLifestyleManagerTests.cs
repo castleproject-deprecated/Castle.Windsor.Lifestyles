@@ -15,6 +15,7 @@
 #endregion
 
 using System;
+using System.Collections.Generic;
 using System.IO;
 using System.Web;
 using System.Web.Hosting;
@@ -22,6 +23,7 @@ using Castle.Core;
 using Castle.MicroKernel.Context;
 using Castle.MicroKernel.Handlers;
 using Castle.MicroKernel.Registration;
+using Castle.MicroKernel.Releasers;
 using NUnit.Framework;
 
 namespace Castle.MicroKernel.Lifestyle.Tests {
@@ -31,13 +33,13 @@ namespace Castle.MicroKernel.Lifestyle.Tests {
         public void No_context_uses_transient() {
             var m = new HybridPerWebRequestTransientLifestyleManager();
             var kernel = new DefaultKernel();
-            var model = new ComponentModel("bla", typeof(object), typeof(object));
+            var model = new ComponentModel(new ComponentName("bla", true), new List<Type>{typeof(object)} , typeof(object), null);
             var activator = kernel.CreateComponentActivator(model);
             m.Init(activator, kernel, model);
             var creationContext = new Func<CreationContext>(() => new CreationContext(new DefaultHandler(model), kernel.ReleasePolicy, typeof(object), null, null, null));
-            var instance1 = m.Resolve(creationContext());
+            var instance1 = m.Resolve(creationContext(), new NoTrackingReleasePolicy());
             Assert.IsNotNull(instance1);
-            var instance2 = m.Resolve(creationContext());
+            var instance2 = m.Resolve(creationContext(), new NoTrackingReleasePolicy());
             Assert.IsNotNull(instance2);
             Assert.AreNotSame(instance1, instance2);
 

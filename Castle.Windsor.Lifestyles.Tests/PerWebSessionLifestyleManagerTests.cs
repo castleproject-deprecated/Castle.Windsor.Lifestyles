@@ -15,6 +15,7 @@
 #endregion
 
 using System;
+using System.Collections.Generic;
 using System.Web;
 using Castle.Core;
 using Castle.MicroKernel.Context;
@@ -24,15 +25,17 @@ using NUnit.Framework;
 using Rhino.Mocks;
 
 namespace Castle.MicroKernel.Lifestyle.Tests {
+    
     [TestFixture]
     public class PerWebSessionLifestyleManagerTests {
+        
         [Test]
         [ExpectedException(typeof (InvalidOperationException), ExpectedMessage = "HttpContext.Current is null. PerWebSessionLifestyle can only be used in ASP.Net")]
         public void NoContextThrows() {
             var m = new PerWebSessionLifestyleManager {ContextProvider = () => null};
-            var componentModel = new ComponentModel("", typeof(object), typeof(object));
+            var componentModel = new ComponentModel(new ComponentName("bla", true), new List<Type> { typeof(object) }, typeof(object), null);
             var handler = new DefaultHandler(componentModel);
-            m.Resolve(new CreationContext(handler, new NoTrackingReleasePolicy(), typeof (object), null, null, null));
+            m.Resolve(new CreationContext(handler, new NoTrackingReleasePolicy(), typeof(object), null, null, null), new NoTrackingReleasePolicy());
         }
 
         [Test]
@@ -40,14 +43,15 @@ namespace Castle.MicroKernel.Lifestyle.Tests {
             var context = GetMockContext();
             var m = new PerWebSessionLifestyleManager {ContextProvider = () => context};
             var kernel = new DefaultKernel();
-            var model = new ComponentModel("bla", typeof (object), typeof (object));
+            var model = new ComponentModel(new ComponentName("bla", true), new List<Type> { typeof(object) }, typeof(object), null);
             var activator = kernel.CreateComponentActivator(model);
             m.Init(activator, kernel, model);
             var handler = new DefaultHandler(model);
             var creationContext = new CreationContext(handler, kernel.ReleasePolicy, typeof (object), null, null, null);
-            var instance = m.Resolve(creationContext);
+            //creationContext.EnterResolutionContext(kernel.GetHandler(), false);
+            var instance = m.Resolve(creationContext, kernel.ReleasePolicy);
             Assert.IsNotNull(instance);
-            var instance2 = m.Resolve(creationContext);
+            var instance2 = m.Resolve(creationContext, kernel.ReleasePolicy);
             Assert.AreSame(instance, instance2);
         }
 
@@ -56,14 +60,14 @@ namespace Castle.MicroKernel.Lifestyle.Tests {
             var context = GetMockContext();
             var m = new PerWebSessionLifestyleManager {ContextProvider = () => context};
             var kernel = new DefaultKernel();
-            var model = new ComponentModel("bla", typeof (object), typeof (object));
+            var model = new ComponentModel(new ComponentName("bla", true), new List<Type> { typeof(object) }, typeof(object), null);
             var activator = kernel.CreateComponentActivator(model);
             m.Init(activator, kernel, model);
             var creationContext = new Func<CreationContext>(() => new CreationContext(new DefaultHandler(model), kernel.ReleasePolicy, typeof (object), null, null, null));
-            var instance = m.Resolve(creationContext());
+            var instance = m.Resolve(creationContext(), kernel.ReleasePolicy);
             Assert.IsNotNull(instance);
             context.Session.Abandon();
-            var instance2 = m.Resolve(creationContext());
+            var instance2 = m.Resolve(creationContext(), kernel.ReleasePolicy);
             Assert.AreNotSame(instance, instance2);
         }
 

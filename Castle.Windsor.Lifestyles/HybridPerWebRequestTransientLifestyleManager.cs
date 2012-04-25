@@ -14,9 +14,8 @@
 // limitations under the License.
 #endregion
 
-using System.Web;
-
 namespace Castle.MicroKernel.Lifestyle {
+
     /// <summary>
     /// Hybrid lifestyle manager, 
     /// the main lifestyle is <see cref="PerWebRequestLifestyleManager"/>,

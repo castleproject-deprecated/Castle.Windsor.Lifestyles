@@ -19,26 +19,44 @@ using System.Web;
 using Castle.MicroKernel.Context;
 
 namespace Castle.MicroKernel.Lifestyle {
+    
     /// <summary>
     /// Hybrid lifestyle manager where the main lifestyle is <see cref = "PerWebRequestLifestyleManager" />
     /// </summary>
     /// <typeparam name = "T">Secondary lifestyle</typeparam>
     public class HybridPerWebRequestLifestyleManager<T> : HybridLifestyleManager<PerWebRequestLifestyleManager, T>
-        where T : ILifestyleManager, new() {
+        where T : ILifestyleManager, new() 
+    {
 
         // TODO make this public in Windsor
-        private static readonly PropertyInfo PerWebRequestLifestyleModuleInitialized = typeof (PerWebRequestLifestyleModule).GetProperty("Initialized", BindingFlags.Static | BindingFlags.NonPublic);
+        private static readonly FieldInfo PerWebRequestLifestyleModuleInitialized = typeof(PerWebRequestLifestyleModule).GetField("initialized", BindingFlags.Static | BindingFlags.NonPublic | BindingFlags.GetField);
 
         private static bool IsPerWebRequestLifestyleModuleInitialized {
             get {
-                return (bool) PerWebRequestLifestyleModuleInitialized.GetValue(null, null);
+                return (bool) PerWebRequestLifestyleModuleInitialized.GetValue(null);
             }
         }
 
-        public override object Resolve(CreationContext context) {
+        public override object Resolve(CreationContext context, IReleasePolicy releasePolicy)
+        {
             if (HttpContext.Current != null && IsPerWebRequestLifestyleModuleInitialized)
-                return lifestyle1.Resolve(context);
-            return lifestyle2.Resolve(context);
+                return lifestyle1.Resolve(context, releasePolicy);
+            return lifestyle2.Resolve(context, releasePolicy);
         }
-        }
+    }
+
+    public class PerThreadLifestyleManager : ScopedLifestyleManager
+    {
+        public PerThreadLifestyleManager()
+            : base(new ThreadScopeAccessor())
+        { }
+    }
+
+    public class PerWebRequestLifestyleManager : ScopedLifestyleManager
+    {
+        public PerWebRequestLifestyleManager()
+            : base(new WebRequestScopeAccessor())
+        { }
+    }
+
 }
