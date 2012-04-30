@@ -68,13 +68,13 @@
     <Compile Include="Contextual\IContainerContextStore.cs" />
     <Compile Include="HttpApplicationScopeAccessor.cs" />
     <Compile Include="HybridLifestyleManager.cs" />
-    <Compile Include="HybridPerWebRequestLifestyleManager.cs" />
-    <Compile Include="HybridPerWebRequestPerThreadLifestyleManager.cs" />
     <Compile Include="HybridPerWebRequestPerThreadScopeAccessor.cs" />
+    <Compile Include="HybridPerWebRequestScopeAccessor.cs" />
     <Compile Include="HybridPerWebRequestTransientScopeAccessor.cs" />
     <Compile Include="HybridScopeAccessor.cs" />
     <Compile Include="LifestyleRegistrationExtensions.cs" />
     <Compile Include="PerHttpApplicationLifestyleModule.cs" />
+    <Compile Include="PerWebRequestLifestyleModuleUtils.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="TransientScopeAccessor.cs" />
     <Compile Include="WebSessionScopeAccessor.cs" />

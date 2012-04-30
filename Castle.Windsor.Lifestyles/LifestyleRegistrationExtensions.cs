@@ -16,7 +16,7 @@ namespace Castle.MicroKernel.Registration {
         }
 
         public static ComponentRegistration<S> HybridPerWebRequestPerThread<S>(this LifestyleGroup<S> @group) where S : class {
-            return @group.Custom<HybridPerWebRequestPerThreadLifestyleManager>();
+            return @group.Scoped<HybridPerWebRequestPerThreadScopeAccessor>();
         }
     }
 }

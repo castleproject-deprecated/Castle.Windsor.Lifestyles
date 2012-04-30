@@ -5,11 +5,8 @@ using System.Text;
 using Castle.MicroKernel.Lifestyle.Scoped;
 
 namespace Castle.MicroKernel.Lifestyle {
-    public class HybridPerWebRequestTransientScopeAccessor: HybridScopeAccessor {
+    public class HybridPerWebRequestTransientScopeAccessor : HybridPerWebRequestScopeAccessor {
         public HybridPerWebRequestTransientScopeAccessor() : 
-            base(new IScopeAccessor[] {
-                new WebRequestScopeAccessor(), 
-                new TransientScopeAccessor(),
-            }) {}
+            base(new TransientScopeAccessor()) {}
     }
 }
