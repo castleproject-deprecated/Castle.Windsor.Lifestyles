@@ -5,6 +5,10 @@ using System.Text;
 using Castle.MicroKernel.Lifestyle.Scoped;
 
 namespace Castle.MicroKernel.Lifestyle {
+    /// <summary>
+    /// Hybrid scope accessor. 
+    /// Tries a list of scope accessors until one returns a non-null scope.
+    /// </summary>
     public class HybridScopeAccessor : IScopeAccessor {
         private readonly IEnumerable<IScopeAccessor> accessors;
 
