@@ -18,16 +18,17 @@ using System;
 using System.Collections.Generic;
 using System.Reflection;
 using System.Web;
+using System.ComponentModel;
 
 namespace Castle.MicroKernel.Lifestyle.Tests {
     public static class HttpModuleRunner {
-        public static KeyValuePair<HttpContext, HttpApplication> GetContext(HttpWorkerRequest wr, params IHttpModule[] modules) {
+        public static KeyValuePair<HttpContext, HttpApplicationStub> GetContext(HttpWorkerRequest wr, params IHttpModule[] modules) {
             var ctx = new HttpContext(wr);
-            var app = new MyApp(modules);
+            var app = new HttpApplicationStub(modules);
             SetHttpApplicationFactoryCustomApplication(app);
             InitInternal(app, ctx);
             AssignContext(app, ctx);
-            return new KeyValuePair<HttpContext, HttpApplication>(ctx, app);
+            return new KeyValuePair<HttpContext, HttpApplicationStub>(ctx, app);
         }
 
         public static HttpContext Run(HttpWorkerRequest wr, params IHttpModule[] modules) {
@@ -60,10 +61,10 @@ namespace Castle.MicroKernel.Lifestyle.Tests {
         private static readonly Type httpApplicationFactory = Type.GetType("System.Web.HttpApplicationFactory, System.Web, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a");
         private static readonly FieldInfo customAppProperty = httpApplicationFactory.GetField("_customApplication", BindingFlags.NonPublic | BindingFlags.Static);
 
-        public class MyApp : HttpApplication {
+        public class HttpApplicationStub : HttpApplication {
             private readonly ICollection<IHttpModule> modules;
 
-            public MyApp(ICollection<IHttpModule> modules) {
+            public HttpApplicationStub(ICollection<IHttpModule> modules) {
                 this.modules = modules;
             }
 
@@ -74,6 +75,18 @@ namespace Castle.MicroKernel.Lifestyle.Tests {
                     Console.WriteLine("Initializing module {0}", m);
                     m.Init(this);
                 }
+            }
+
+            public static object GetEventKey(string eventName) {
+                return typeof(HttpApplication).GetField("Event" + eventName, BindingFlags.Static | BindingFlags.NonPublic).GetValue(null);
+            }
+
+            public static readonly object EventEndRequestKey = GetEventKey("EndRequest");
+
+            public void FireEndRequest() {
+                var handler = (EventHandler) Events[EventEndRequestKey];
+                if (handler != null)
+                    handler(this, null);
             }
         }
     }
