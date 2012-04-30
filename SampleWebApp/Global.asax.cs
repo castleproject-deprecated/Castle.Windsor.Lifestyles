@@ -8,7 +8,6 @@ namespace SampleWebApp {
     public class Global : HttpApplication {
         protected void Application_Start(object sender, EventArgs e) {
             var kernel = new DefaultKernel();
-            kernel.AddFacility<FactorySupportFacility>();
             kernel.Register(Component.For<HttpContextBase>()
                                 .LifeStyle.Transient
                                 .UsingFactoryMethod(() => new HttpContextWrapper(HttpContext.Current)));

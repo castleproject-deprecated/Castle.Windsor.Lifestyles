@@ -20,7 +20,7 @@ using System.Reflection;
 using System.Web;
 
 namespace Castle.MicroKernel.Lifestyle.Tests {
-    public class HttpModuleRunner {
+    public static class HttpModuleRunner {
         public static KeyValuePair<HttpContext, HttpApplication> GetContext(HttpWorkerRequest wr, params IHttpModule[] modules) {
             var ctx = new HttpContext(wr);
             var app = new MyApp(modules);

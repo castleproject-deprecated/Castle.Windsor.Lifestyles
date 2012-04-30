@@ -14,26 +14,33 @@
 // limitations under the License.
 #endregion
 
+using System;
 using System.Collections.Generic;
 using System.Web;
+using Castle.MicroKernel.Lifestyle.Scoped;
+using System.Threading;
 
 namespace Castle.MicroKernel.Lifestyle {
     /// <summary>
-    /// Storage for PerHttpApplication lifestyle components
+    /// Storage for PerHttpApplication lifestyle scopes
     /// </summary>
     public class PerHttpApplicationLifestyleModule : IHttpModule {
         public void Init(HttpApplication context) {}
-        public void Dispose() {}
 
-        private readonly IDictionary<string, object> Components = new Dictionary<string, object>();
-
-        public bool HasComponent(string id) {
-            return Components.ContainsKey(id);
+        public void Dispose() {
+            scope.Dispose();
         }
 
-        public object this[string id] {
-            get { return Components[id]; }
-            set { Components[id] = value; }
+        private ILifetimeScope scope = new DefaultLifetimeScope();
+
+        public ILifetimeScope GetScope() {
+            return scope;
+        }
+
+        public void ClearScope() {
+            var newScope = new DefaultLifetimeScope();
+            var oldScope = Interlocked.Exchange(ref scope, newScope);
+            oldScope.Dispose();
         }
     }
 }

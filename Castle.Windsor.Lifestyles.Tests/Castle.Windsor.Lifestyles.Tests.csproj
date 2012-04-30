@@ -73,8 +73,6 @@
     <Compile Include="Contextual\ContainerContextFixture.cs" />
     <Compile Include="HashtableSessionState.cs" />
     <Compile Include="HttpModuleRunner.cs" />
-    <Compile Include="HybridPerWebRequestTransientLifestyleManagerTests.cs" />
-    <Compile Include="PerWebSessionLifestyleManagerTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
