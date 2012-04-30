@@ -1,7 +1,9 @@
 using Castle.MicroKernel.Context;
+using System;
 
 namespace Castle.MicroKernel.Lifestyle.Contextual
 {
+    [Obsolete("Use ScopedLifestyleManager instead")]
     public class ContextualLifestyle : AbstractLifestyleManager
     {
         public override object Resolve(CreationContext context, IReleasePolicy releasePolicy)
