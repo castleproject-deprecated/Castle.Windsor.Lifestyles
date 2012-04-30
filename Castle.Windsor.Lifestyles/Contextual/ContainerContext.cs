@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using Castle.Core;
 using Castle.Windsor;
+using Castle.MicroKernel.Registration;
 
 namespace Castle.MicroKernel.Lifestyle.Contextual
 {
@@ -46,9 +47,8 @@ namespace Castle.MicroKernel.Lifestyle.Contextual
 
 		private void EnsureContainerContextStoreRegistered()
 		{
-			if (kernel.HasComponent(typeof(IContainerContextStore)) == false)
-			{
-				kernel.AddComponent<ContainerContextStore>(typeof(IContainerContextStore));
+			if (!kernel.HasComponent(typeof(IContainerContextStore))) {
+			    kernel.Register(Component.For<IContainerContextStore>().ImplementedBy<ContainerContextStore>());
 			}
 		}
 	}

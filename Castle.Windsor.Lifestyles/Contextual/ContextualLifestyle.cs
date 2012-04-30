@@ -1,5 +1,7 @@
 using Castle.MicroKernel.Context;
 using System;
+using System.Linq;
+using Castle.MicroKernel.Registration;
 
 namespace Castle.MicroKernel.Lifestyle.Contextual
 {
@@ -20,20 +22,19 @@ namespace Castle.MicroKernel.Lifestyle.Contextual
                 }
             }
             
-            var instance = currentContext.GetInstance(Model.Name, Model.Implementation);
+            var instance = currentContext.GetInstance(Model.Name, Model.Services.First());
             if (instance == null)
             {
                 instance = base.Resolve(context, releasePolicy);
-                currentContext.Register(Model.Name, Model.Implementation, instance);  //Model.Service,
+                currentContext.Register(Model.Name, Model.Services.First(), instance);
             }
             return instance;
         }
 
         private void EnsureContainerContextStoreRegistered()
         {
-            if (Kernel.HasComponent(typeof(IContainerContextStore)) == false)
-            {
-                Kernel.AddComponent<ContainerContextStore>(typeof(IContainerContextStore));
+            if (!Kernel.HasComponent(typeof(IContainerContextStore))) {
+                Kernel.Register(Component.For<IContainerContextStore>().ImplementedBy<ContainerContextStore>());
             }
         }
 
