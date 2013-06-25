@@ -3,3 +3,5 @@ _ReSharper.*
 *.user
 */[bB]in
 */[oO]bj
+*.DotSettings
+packages/
