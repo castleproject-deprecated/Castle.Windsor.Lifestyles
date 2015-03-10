@@ -10,7 +10,7 @@ using System.Runtime.InteropServices;
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("")]
 [assembly: AssemblyProduct("Castle.Windsor.Lifestyles.Tests")]
-[assembly: AssemblyCopyright("Copyright © Castle Project 2010")]
+[assembly: AssemblyCopyright("Copyright © Castle Project 2015")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
 

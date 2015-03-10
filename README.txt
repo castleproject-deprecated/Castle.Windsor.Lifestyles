@@ -1,3 +1,3 @@
-http://github.com/castleprojectcontrib/Castle.Windsor.Lifestyles
+Forked from http://github.com/castleprojectcontrib/Castle.Windsor.Lifestyles
 
-Built against Castle Windsor 3.2
+Built against Castle Windsor 3.3

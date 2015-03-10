@@ -2,7 +2,7 @@
 <package xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
   <metadata xmlns="http://schemas.microsoft.com/packaging/2010/07/nuspec.xsd">
     <id>Castle.Windsor.Lifestyles</id>
-    <version>0.3.0</version>
+    <version>0.4.0</version>
     <authors>Mauricio Scheffer and contributors</authors>
     <requireLicenseAcceptance>false</requireLicenseAcceptance>
     <description>Additional lifestyles for Castle.Windsor</description>
@@ -11,12 +11,12 @@
     <summary>Additional lifestyles for Castle.Windsor</summary>
     <language>en-US</language>
     <dependencies>
-      <dependency id="Castle.Windsor" version="3.2.0" />
+      <dependency id="Castle.Windsor" version="3.3.0" />
     </dependencies>
   </metadata>
     <files>
-      <file src="Castle.Windsor.Lifestyles\bin\Release\Castle.Windsor.Lifestyles.dll" target="lib\NET40" />
-      <file src="Castle.Windsor.Lifestyles\bin\Release\Castle.Windsor.Lifestyles.pdb" target="lib\NET40" />
-      <file src="Castle.Windsor.Lifestyles\bin\Release\Castle.Windsor.Lifestyles.xml" target="lib\NET40" />
+      <file src="Castle.Windsor.Lifestyles\bin\Release\Castle.Windsor.Lifestyles.dll" target="lib\net45" />
+      <file src="Castle.Windsor.Lifestyles\bin\Release\Castle.Windsor.Lifestyles.pdb" target="lib\net45" />
+      <file src="Castle.Windsor.Lifestyles\bin\Release\Castle.Windsor.Lifestyles.xml" target="lib\net45" />
     </files>    
 </package>
