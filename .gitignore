@@ -6,3 +6,4 @@ _ReSharper.*
 *.DotSettings
 packages/
 .nuget/*.exe
+*.nupkg

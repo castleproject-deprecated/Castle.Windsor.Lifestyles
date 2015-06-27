@@ -1,10 +1,11 @@
-﻿Microsoft Visual Studio Solution File, Format Version 12.00
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 2013
+VisualStudioVersion = 12.0.31101.0
+MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Castle.Windsor.Lifestyles", "Castle.Windsor.Lifestyles\Castle.Windsor.Lifestyles.csproj", "{139EAB1D-CE1F-4726-B58F-EE9FD3051D4D}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Castle.Windsor.Lifestyles.Tests", "Castle.Windsor.Lifestyles.Tests\Castle.Windsor.Lifestyles.Tests.csproj", "{90F172AD-79AC-44C4-B800-E61C174AA8F6}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SampleWebApp", "SampleWebApp\SampleWebApp.csproj", "{6A54EFBC-77AB-4AD8-AC82-8BBF9884067F}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".nuget", ".nuget", "{037DCB08-EE10-42D3-884C-C59CD933C80F}"
 	ProjectSection(SolutionItems) = preProject
@@ -26,10 +27,6 @@ Global
 		{90F172AD-79AC-44C4-B800-E61C174AA8F6}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{90F172AD-79AC-44C4-B800-E61C174AA8F6}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{90F172AD-79AC-44C4-B800-E61C174AA8F6}.Release|Any CPU.Build.0 = Release|Any CPU
-		{6A54EFBC-77AB-4AD8-AC82-8BBF9884067F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{6A54EFBC-77AB-4AD8-AC82-8BBF9884067F}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{6A54EFBC-77AB-4AD8-AC82-8BBF9884067F}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{6A54EFBC-77AB-4AD8-AC82-8BBF9884067F}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
